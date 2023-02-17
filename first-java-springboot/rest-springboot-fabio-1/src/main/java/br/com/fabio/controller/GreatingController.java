@@ -1,10 +1,12 @@
-package br.com.fabio;
+package br.com.fabio.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.fabio.Greating;
 
 @RestController
 public class GreatingController {
