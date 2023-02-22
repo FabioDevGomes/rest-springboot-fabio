@@ -1,6 +1,8 @@
 package br.com.fabio.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +21,13 @@ public class PersonController {
 	PersonService personService;
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person sum(@PathVariable(value = "id") String id) throws Exception {
-		
+	public Person findById(@PathVariable(value = "id") String id) throws Exception {
 		return personService.findById(id);
+	}
+	
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Person> listAll() {
+		return personService.listAll();
 	}
 	
 }
