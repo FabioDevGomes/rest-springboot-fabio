@@ -29,12 +29,29 @@ public class PersonService {
 	}
 	
 	public List<Person> listAll(){
-		List<Person> persons = new ArrayList<>();
+		logger.info("list person");
+		List<Person> person = new ArrayList<>();
 		for (int i = 0; i < 8; i++) {
-			persons.add(personMock(i));
+			person.add(personMock(i));
 			
 		}
-		return persons;
+		return person;
+	}
+	
+	public Person create(Person person) {
+		logger.info("create one person");
+		
+		return person;
+	}
+	
+	public Person update(Person person) {
+		logger.info("update one person");
+		
+		return person;
+	}
+	
+	public void delete(String id) {
+		logger.info("delete one person");
 	}
 
 	private Person personMock(int count) {
