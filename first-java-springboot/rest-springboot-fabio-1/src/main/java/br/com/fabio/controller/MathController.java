@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fabio.exceptions.UnsuporteMathOperationExceptions;
+import br.com.fabio.exceptions.ResourceNotFoundException;
 import br.com.fabio.service.MathService;
 
 @RestController
@@ -19,7 +19,7 @@ public class MathController {
 	public Double sum(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 		
 		if(!mathService.isNumeric(numberOne, numberTwo)) {
-			throw new UnsuporteMathOperationExceptions("please set a numeric value");
+			throw new ResourceNotFoundException("please set a numeric value");
 		}
 		
 		return mathService.sum(numberOne, numberTwo);
@@ -29,7 +29,7 @@ public class MathController {
 	public Double multiplication(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 		
 		if(!mathService.isNumeric(numberOne, numberTwo)) {
-			throw new UnsuporteMathOperationExceptions("please set a numeric value");
+			throw new ResourceNotFoundException("please set a numeric value");
 		}
 		
 		return mathService.multiplication(numberOne, numberTwo);
@@ -39,7 +39,7 @@ public class MathController {
 	public Double division(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 		
 		if(!mathService.isNumeric(numberOne, numberTwo)) {
-			throw new UnsuporteMathOperationExceptions("please set a numeric value");
+			throw new ResourceNotFoundException("please set a numeric value");
 		}
 		
 		return mathService.division(numberOne, numberTwo);
@@ -49,7 +49,7 @@ public class MathController {
 	public Double decrease(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 		
 		if(!mathService.isNumeric(numberOne, numberTwo)) {
-			throw new UnsuporteMathOperationExceptions("please set a numeric value");
+			throw new ResourceNotFoundException("please set a numeric value");
 		}
 		
 		return mathService.decrease(numberOne, numberTwo);
