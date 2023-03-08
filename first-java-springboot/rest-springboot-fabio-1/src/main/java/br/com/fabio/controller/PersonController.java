@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fabio.model.Person;
+import br.com.fabio.dto.vo.PersonDto;
 import br.com.fabio.service.PersonService;
 
 @RestController
@@ -26,22 +26,22 @@ public class PersonController {
 	PersonService personService;
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person findById(@PathVariable(value = "id") Long id) throws Exception {
+	public PersonDto findById(@PathVariable(value = "id") Long id) throws Exception {
 		return personService.findById(id);
 	}
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Person> listAll() {
+	public List<PersonDto> listAll() {
 		return personService.listAll();
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person create(@RequestBody Person person) {
+	public PersonDto create(@RequestBody PersonDto person) {
 		return personService.create(person);
 	}
 	
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person update(@RequestBody Person person) {
+	public PersonDto update(@RequestBody PersonDto person) {
 		return personService.update(person);
 	}
 	

@@ -6,7 +6,9 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.fabio.dto.vo.PersonDto;
 import br.com.fabio.exceptions.ResourceNotFoundException;
+import br.com.fabio.mapper.DozerMapper;
 import br.com.fabio.model.Person;
 import br.com.fabio.repository.PersonRepository;
 
@@ -18,24 +20,26 @@ public class PersonService {
 	@Autowired
 	PersonRepository personRepository;
 	
-	public Person findById(Long id) {
+	public PersonDto findById(Long id) {
 		logger.info("find one person");
 
 		return find(id);
 	}
 	
-	public List<Person> listAll(){
+	public List<PersonDto> listAll(){
 		logger.info("list person");
-		return personRepository.findAll();
+//		return personRepository.findAll();
+		return null;
 	}
 	
-	public Person create(Person person) {
+	public PersonDto create(PersonDto person) {
 		logger.info("create one person");
 		
-		return personRepository.save(person);
+//		return personRepository.save(person);
+		return null;
 	}
 	
-	public Person update(Person person) {
+	public PersonDto update(PersonDto person) {
 		logger.info("update one person");
 		
 		var entity = find(person.getId());
@@ -44,17 +48,20 @@ public class PersonService {
 		entity.setAddress(person.getAddress());
 		entity.setGander(person.getGander());
 		
-		return personRepository.save(entity);
+		Person personEntity = personRepository.save(DozerMapper.parseObject(entity, Person.class));
+		return DozerMapper.parseObject(personEntity, PersonDto.class);
 	}
 
-	private Person find(Long id) {
-		return personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+	private PersonDto find(Long id) {
+		Person entity = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+		return DozerMapper.parseObject(entity, PersonDto.class);
+
 	}
 	
 	public void delete(Long id) {
 		logger.info("delete one person");
 		var entity = find(id);
-		personRepository.delete(entity);
+//		personRepository.delete(entity);
 	}
 
 }
