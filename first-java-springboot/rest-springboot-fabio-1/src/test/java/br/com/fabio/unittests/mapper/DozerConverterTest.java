@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import br.com.fabio.dto.vo.PersonDto;
 import br.com.fabio.mapper.DozerMapper;
 import br.com.fabio.model.Person;
 import br.com.fabio.unittests.mapper.mocks.MockPerson;
@@ -22,9 +23,14 @@ public class DozerConverterTest {
 	
 	@Test
 	public void parseTest() {
-		Person person = DozerMapper.parseObject(mockPerson.mockDto(), Person.class);
+		PersonDto personDto = mockPerson.mockDto();
 		
-		assertEquals(person.getFirstName(), mockPerson.mockDto().getFirstName());
+		Person person = DozerMapper.parseObject(personDto, Person.class);
+	
+		assertEquals(person.getFirstName(), personDto.getFirstName());
+		assertEquals(person.getFirstName(), personDto.getFirstName());
+		assertEquals(person.getFirstName(), personDto.getFirstName());
+		assertEquals(person.getFirstName(), personDto.getFirstName());
 	}
 
 }

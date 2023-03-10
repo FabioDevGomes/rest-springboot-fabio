@@ -28,15 +28,14 @@ public class PersonService {
 	
 	public List<PersonDto> listAll(){
 		logger.info("list person");
-//		return personRepository.findAll();
-		return null;
+		return DozerMapper.parseListObjects(personRepository.findAll(), PersonDto.class);
 	}
 	
 	public PersonDto create(PersonDto person) {
 		logger.info("create one person");
 		
-//		return personRepository.save(person);
-		return null;
+		Person personEntity = personRepository.save(DozerMapper.parseObject(person, Person.class));
+		return DozerMapper.parseObject(personEntity, PersonDto.class);
 	}
 	
 	public PersonDto update(PersonDto person) {
@@ -50,7 +49,7 @@ public class PersonService {
 		
 		Person personEntity = personRepository.save(DozerMapper.parseObject(entity, Person.class));
 		return DozerMapper.parseObject(personEntity, PersonDto.class);
-	}
+	} 
 
 	private PersonDto find(Long id) {
 		Person entity = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
@@ -61,7 +60,7 @@ public class PersonService {
 	public void delete(Long id) {
 		logger.info("delete one person");
 		var entity = find(id);
-//		personRepository.delete(entity);
+		personRepository.delete(DozerMapper.parseObject(entity, Person.class));
 	}
 
 }
