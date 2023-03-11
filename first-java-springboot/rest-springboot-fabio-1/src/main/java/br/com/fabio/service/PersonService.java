@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.fabio.dto.vo.PersonDto;
+import br.com.fabio.dto.vo.v2.PersonDtoV2;
 import br.com.fabio.exceptions.ResourceNotFoundException;
 import br.com.fabio.mapper.DozerMapper;
+import br.com.fabio.mapper.PersonMapper;
 import br.com.fabio.model.Person;
 import br.com.fabio.repository.PersonRepository;
 
@@ -19,6 +21,9 @@ public class PersonService {
 	
 	@Autowired
 	PersonRepository personRepository;
+	
+	@Autowired
+	PersonMapper mapper;
 	
 	public PersonDto findById(Long id) {
 		logger.info("find one person");
@@ -36,6 +41,13 @@ public class PersonService {
 		
 		Person personEntity = personRepository.save(DozerMapper.parseObject(person, Person.class));
 		return DozerMapper.parseObject(personEntity, PersonDto.class);
+	}
+
+	public PersonDtoV2 createV2(PersonDtoV2 person) {
+		logger.info("create one person v2");
+		
+		Person personEntity = personRepository.save(mapper.convertDtoToEntity(person));
+		return mapper.convertEntityToDto(personEntity);
 	}
 	
 	public PersonDto update(PersonDto person) {
