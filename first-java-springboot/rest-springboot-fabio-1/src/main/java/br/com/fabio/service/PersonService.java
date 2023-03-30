@@ -71,7 +71,7 @@ public class PersonService {
 	
 	public void delete(Long id) {
 		logger.info("delete one person");
-		var entity = find(id);
+		PersonDto entity = find(id);
 		personRepository.delete(DozerMapper.parseObject(entity, Person.class));
 	}
 

@@ -11,7 +11,7 @@ import br.com.fabio.model.Person;
 public class PersonMapper {
 
 	public PersonDtoV2 convertEntityToDto(Person person) {
-		PersonDtoV2 dto = new PersonDtoV2();
+		var dto = new PersonDtoV2();
 		dto.setId(person.getId());
 		dto.setFirstName(person.getFirstName());
 		dto.setLastName(person.getLastName());
@@ -23,7 +23,7 @@ public class PersonMapper {
 	}
 
 	public Person convertDtoToEntity(PersonDtoV2 person) {
-		Person entity = new Person();
+		var entity = new Person();
 		entity.setId(person.getId());
 		entity.setFirstName(person.getFirstName());
 		entity.setLastName(person.getLastName());
