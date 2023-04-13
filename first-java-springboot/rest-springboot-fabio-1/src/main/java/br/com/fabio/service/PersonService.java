@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Service;
 
+import br.com.fabio.controller.PersonController;
 import br.com.fabio.dto.vo.PersonDto;
 import br.com.fabio.dto.vo.v2.PersonDtoV2;
 import br.com.fabio.exceptions.ResourceNotFoundException;
@@ -25,7 +27,7 @@ public class PersonService {
 	@Autowired
 	PersonMapper mapper;
 	
-	public PersonDto findById(Long id) {
+	public PersonDto findById(Long id){
 		logger.info("find one person");
 
 		return find(id);
@@ -50,10 +52,10 @@ public class PersonService {
 		return mapper.convertEntityToDto(personEntity);
 	}
 	
-	public PersonDto update(PersonDto person) {
+	public PersonDto update(PersonDto person) throws Exception {
 		logger.info("update one person");
 		
-		var entity = find(person.getId());
+		var entity = find(person.getKey());
 		entity.setFirstName(person.getFirstName());
 		entity.setLastName(person.getLastName());
 		entity.setAddress(person.getAddress());
@@ -65,11 +67,18 @@ public class PersonService {
 
 	private PersonDto find(Long id) {
 		Person entity = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
-		return DozerMapper.parseObject(entity, PersonDto.class);
+		PersonDto vo = DozerMapper.parseObject(entity, PersonDto.class);
+		try {
+			vo.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonController.class).findById(id)).withSelfRel());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vo;
 
 	}
 	
-	public void delete(Long id) {
+	public void delete(Long id) throws Exception {
 		logger.info("delete one person");
 		PersonDto entity = find(id);
 		personRepository.delete(DozerMapper.parseObject(entity, Person.class));

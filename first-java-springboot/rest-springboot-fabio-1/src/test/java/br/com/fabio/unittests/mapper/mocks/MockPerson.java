@@ -18,6 +18,7 @@ public class MockPerson {
 	
 	public Person mockEntity(int number) {
 		Person person = new Person();
+		person.setId(number);
 		person.setFirstName("Person "+ number);
 		person.setLastName("Alves "+ number);
 		person.setAddress("Eddress person "+ number);

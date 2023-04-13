@@ -27,7 +27,7 @@ public class PersonController {
 	PersonService personService;
 	
 	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public PersonDto findById(@PathVariable(value = "id") Long id) throws Exception {
+	public PersonDto findById(@PathVariable(value = "id") Long id) {
 		return personService.findById(id);
 	}
 	
@@ -51,12 +51,12 @@ public class PersonController {
 	@PutMapping(
 			consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, 
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public PersonDto update(@RequestBody PersonDto person) {
+	public PersonDto update(@RequestBody PersonDto person) throws Exception {
 		return personService.update(person);
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
 		personService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
