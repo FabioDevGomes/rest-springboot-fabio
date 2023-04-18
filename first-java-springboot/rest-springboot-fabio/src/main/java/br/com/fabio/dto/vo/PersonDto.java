@@ -16,7 +16,8 @@ public class PersonDto extends RepresentationModel<PersonDto> implements Seriali
 	private static final long serialVersionUID = 1L;
 
 	@Mapping("id")
-	private long key;
+	@JsonProperty("id")
+	private Long key;
 	
 	@JsonProperty("first_name")
 	private String firstName;
@@ -32,11 +33,11 @@ public class PersonDto extends RepresentationModel<PersonDto> implements Seriali
 		super();
 	}
 
-	public long getKey() {
+	public Long getKey() {
 		return key;
 	}
 
-	public void setKey(long key) {
+	public void setKey(Long key) {
 		this.key = key;
 	}
 

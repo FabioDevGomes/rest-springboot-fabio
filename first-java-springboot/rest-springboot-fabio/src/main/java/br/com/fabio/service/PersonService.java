@@ -41,8 +41,17 @@ public class PersonService {
 	public PersonDto create(PersonDto person) {
 		logger.info("create one person");
 		
-		Person personEntity = personRepository.save(DozerMapper.parseObject(person, Person.class));
-		return DozerMapper.parseObject(personEntity, PersonDto.class);
+		Person personEntity = null;
+		PersonDto personDto = null;
+		try {
+			Person d = DozerMapper.parseObject(person, Person.class);
+			personEntity = personRepository.save(d);
+			personDto = DozerMapper.parseObject(personEntity, PersonDto.class);
+		} catch (Exception e) {
+			logger.severe("error parse");
+			e.printStackTrace();
+		}
+		return personDto;
 	}
 
 	public PersonDtoV2 createV2(PersonDtoV2 person) {

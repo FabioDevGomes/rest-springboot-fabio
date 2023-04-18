@@ -9,9 +9,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.fabio</groupId>
-	<artifactId>rest-springboot-fabio-1</artifactId>
+	<artifactId>rest-springboot-fabio</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>rest-springboot-fabio-1</name>
+	<name>rest-springboot-fabio</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>19</java.version>

@@ -23,14 +23,14 @@ public class DozerConverterTest {
 	
 	@Test
 	public void parseTest() {
-		PersonDto personDto = mockPerson.mockDto();
+		PersonDto personDto = mockPerson.mockDto(1);
 		
 		Person person = DozerMapper.parseObject(personDto, Person.class);
 	
 		assertEquals(person.getFirstName(), personDto.getFirstName());
-		assertEquals(person.getFirstName(), personDto.getFirstName());
-		assertEquals(person.getFirstName(), personDto.getFirstName());
-		assertEquals(person.getFirstName(), personDto.getFirstName());
+		assertEquals(person.getLastName(), personDto.getLastName());
+		assertEquals(person.getAddress(), personDto.getAddress());
+		assertEquals(person.getGander(), personDto.getGander());
 	}
 
 }
