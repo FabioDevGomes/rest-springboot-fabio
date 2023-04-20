@@ -42,8 +42,10 @@ public class PersonService {
 	public PersonDto create(PersonDto person) {
 		logger.info("create one person");
 		
+		validateIsNull(person);
 		Person personEntity = null;
 		PersonDto personDto = null;
+		
 		try {
 			Person d = DozerMapper.parseObject(person, Person.class);
 			personEntity = personRepository.save(d);
@@ -63,11 +65,9 @@ public class PersonService {
 	}
 	
 	public PersonDto update(PersonDto person) throws Exception {
-		
-		if (person == null) {
-			throw new RequiredObjectIsNullFoundException();
-		}
 		logger.info("update one person");
+		
+		validateIsNull(person);
 		
 		var entity = find(person.getKey());
 		entity.setFirstName(person.getFirstName());
@@ -77,6 +77,12 @@ public class PersonService {
 		
 		Person personEntity = personRepository.save(DozerMapper.parseObject(entity, Person.class));
 		return DozerMapper.parseObject(personEntity, PersonDto.class);
+	}
+
+	private void validateIsNull(PersonDto person) {
+		if (person == null) {
+			throw new RequiredObjectIsNullFoundException();
+		}
 	} 
 
 	private PersonDto find(Long id) {
