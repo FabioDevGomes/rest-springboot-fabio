@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import br.com.fabio.controller.PersonController;
 import br.com.fabio.dto.vo.PersonDto;
 import br.com.fabio.dto.vo.v2.PersonDtoV2;
+import br.com.fabio.exceptions.RequiredObjectIsNullFoundException;
 import br.com.fabio.exceptions.ResourceNotFoundException;
 import br.com.fabio.mapper.DozerMapper;
 import br.com.fabio.mapper.PersonMapper;
@@ -62,6 +63,10 @@ public class PersonService {
 	}
 	
 	public PersonDto update(PersonDto person) throws Exception {
+		
+		if (person == null) {
+			throw new RequiredObjectIsNullFoundException();
+		}
 		logger.info("update one person");
 		
 		var entity = find(person.getKey());

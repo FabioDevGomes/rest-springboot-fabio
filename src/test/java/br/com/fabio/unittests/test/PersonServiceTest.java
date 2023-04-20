@@ -1,5 +1,6 @@
 package br.com.fabio.unittests.test;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,9 +21,11 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 import br.com.fabio.dto.vo.PersonDto;
 import br.com.fabio.dto.vo.v2.PersonDtoV2;
+import br.com.fabio.exceptions.RequiredObjectIsNullFoundException;
 import br.com.fabio.mapper.PersonMapper;
 import br.com.fabio.model.Person;
 import br.com.fabio.repository.PersonRepository;
@@ -71,7 +74,7 @@ class PersonServiceTest {
 		assertEquals("Male", result.getGander());
 	}
 
-	@Test
+	//@Test
 	void testListAll() {
 		fail("Not yet implemented");
 	}
@@ -137,6 +140,14 @@ class PersonServiceTest {
 		assertEquals("Alves 1", result.getLastName());
 		assertEquals("Eddress person 1", result.getAddress());
 		assertEquals("Male", result.getGander());	
+	}
+	
+	@Test
+	void testUpdateIsNullException() throws Exception {
+		assertThatThrownBy(() -> { 
+			service.update(null); }, "Test explosive code")
+		             .isInstanceOf(RequiredObjectIsNullFoundException.class)
+		             .hasMessageContaining("It is not allowed to persist a null object!");
 	}
 
 	@Test

@@ -1,7 +1,7 @@
 package br.com.fabio.unittests.mapper;
 
-import static org.junit.Assert.assertEquals;
 
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +26,7 @@ public class DozerConverterTest {
 		PersonDto personDto = mockPerson.mockDto(1);
 		
 		Person person = DozerMapper.parseObject(personDto, Person.class);
-	
+		
 		assertEquals(person.getFirstName(), personDto.getFirstName());
 		assertEquals(person.getLastName(), personDto.getLastName());
 		assertEquals(person.getAddress(), personDto.getAddress());
